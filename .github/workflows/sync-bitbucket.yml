@@ -29,5 +29,5 @@ jobs:
       #    Reemplaza USUARIO/REPO por tu workspace y repositorio de Bitbucket.
       - name: Push a Bitbucket
         run: |
-          git remote add bitbucket git@bitbucket.org:USUARIO/REPO.git
+          git remote add bitbucket git@bitbucket.org:alberthzaid/vortex-prueba-bitbucket.git
           git push bitbucket HEAD:main --force
