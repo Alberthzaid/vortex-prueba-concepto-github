@@ -16,7 +16,5 @@ jobs:
 
       - name: Push a Bitbucket
         run: |
-          git remote add bitbucket ${{ secrets.BITBUCKET_TOKEN }}
+          git remote add bitbucket "${{ secrets.BITBUCKET_TOKEN }}"
           git push bitbucket HEAD:main --force
-
-
