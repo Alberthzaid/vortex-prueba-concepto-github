@@ -1,7 +1,5 @@
 name: Sync to Bitbucket
 
-# Se dispara ÚNICAMENTE cuando hay push a la rama indicada.
-# Cambia "main" por la rama que quieras sincronizar.
 on:
   push:
     branches:
@@ -11,22 +9,12 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      # 1. Clona el repo con TODO el historial (necesario para empujar bien)
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. Configura la clave SSH de Bitbucket desde el secreto de GitHub
-      - name: Configurar SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.BITBUCKET_SSH_KEY }}" | base64 -d > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
-      # 3. Empuja la rama a Bitbucket
-      #    Reemplaza USUARIO/REPO por tu workspace y repositorio de Bitbucket.
       - name: Push a Bitbucket
         run: |
-          git remote add bitbucket git@bitbucket.org:alberthzaid/vortex-prueba-bitbucket.git
+          git remote add bitbucket https://x-token-auth:${{ secrets.BITBUCKET_TOKEN }}@bitbucket.org/alberthzaid/vortex-prueba-bitbucket.git
           git push bitbucket HEAD:main --force
